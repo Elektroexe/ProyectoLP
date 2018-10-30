@@ -1,4 +1,7 @@
 #include "MatriuDispersa.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 //#include "MatriuDispersa.h"
 //#include <string>
 //using namespace std;
@@ -199,21 +202,142 @@
 
 MatriuDispersa::MatriuDispersa()
 {
+	maxRow = 0;
+	maxCol = 0;
 }
 
 MatriuDispersa::MatriuDispersa(string fitxert)
 {
+	maxRow = 0;
+	maxCol = 0;
+	ifstream myReadFile;
+	myReadFile.open(fitxert);
+	string line="";
+	int sizeCount = 0;
+	if (myReadFile.is_open())
+	{
+		if (!myReadFile.eof())
+		{
+			while (getline(myReadFile, line)) {
+			
+			
+				stringstream ss(line);
+
+			
+				bool primerVec = true;
+				while (getline(ss, line, '\t')) {
+					if (line != "")
+					{
+						if (primerVec)
+						{
+							rowVector.emplace_back(stoi(line));
+							primerVec = false;
+							valVector.emplace_back(1);
+							if (stoi(line) > maxRow + 1)
+							{
+								maxRow = stoi(line) + 1;
+							}
+
+						}
+						else {
+							colVector.emplace_back(stoi(line));
+							if (stoi(line) > maxCol + 1)
+							{
+								maxCol = stoi(line) + 1;
+							}
+						}
+					}
+			
+					
+				}
+
+			}
+		}
+		
+	}
+	if (maxRow < maxCol)
+	{
+		maxRow = maxCol;
+	} 
+	else
+	{
+		maxCol = maxRow;
+	}
 }
 
 void MatriuDispersa::setVal(const int & nFiles, const int & nColumnes, const int & valor)
 {
+	if (valor > 0)
+	{
+
+		bool trobat = false;
+		for (int i = 0; i < rowVector.size(); i++)
+		{
+			if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
+			{
+				valVector.at(i) = valor;
+				trobat = true;
+
+
+			}
+		}
+		if (!trobat)
+		{
+			rowVector.emplace_back(nFiles);
+			colVector.emplace_back(nColumnes);
+			valVector.emplace_back(valor);
+		
+			if (nFiles > maxRow + 1)
+			{
+				maxRow = nFiles + 1;
+			}
+			if (nColumnes > maxCol + 1)
+			{
+				maxCol = nColumnes + 1;
+			}
+			if (maxRow < maxCol)
+			{
+				maxRow = maxCol;
+			}
+			else
+			{
+				maxCol = maxRow;
+			}
+		}
+	}
+	
+	else
+	{
+		maxCol = maxRow;
+	}
 }
 
 void MatriuDispersa::setVal(const int & valor)
 {
 }
 
+bool MatriuDispersa::getVal(int nFiles, int nColumnes, float& valor)
+{
+	bool trobat = false;
+	if (valor ==0)
+	{
+		trobat = true;
+	}
+	for (int i = 0; i < rowVector.size(); i++)
+	{
+		if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
+		{
+			valor = valVector.at(i);
+			trobat = true;
+
+
+		}
+	}
+	return trobat;
+}
+
 ostream & operator<<(ostream & out, const MatriuDispersa & md)
 {
 	// TODO: insertar una instrucción return aquí
+	return out;
 }
