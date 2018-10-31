@@ -1,14 +1,14 @@
-#include "MatriuDispersa.h"
+#include "MatriuSparse.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-MatriuDispersa::MatriuDispersa()
+MatriuSparse::MatriuSparse()
 {
 	maxRowCol = 0;
 }
 
-MatriuDispersa::MatriuDispersa(string fitxert)
+MatriuSparse::MatriuSparse(string fitxert)
 {
 	ifstream myReadFile;
 	myReadFile.open(fitxert);
@@ -54,7 +54,7 @@ MatriuDispersa::MatriuDispersa(string fitxert)
 	sortVectors();
 }
 
-void MatriuDispersa::setVal(const int & nFiles, const int & nColumnes, const int & valor)
+void MatriuSparse::setVal(const int & nFiles, const int & nColumnes, const int & valor)
 {
 	if (valor > 0)
 	{
@@ -85,7 +85,7 @@ void MatriuDispersa::setVal(const int & nFiles, const int & nColumnes, const int
 	}
 }
 
-bool MatriuDispersa::getVal(int nFiles, int nColumnes, float& valor)
+bool MatriuSparse::getVal(int nFiles, int nColumnes, float& valor)
 {
 	bool trobat = false;
 	if (valor == 0)
@@ -105,7 +105,7 @@ bool MatriuDispersa::getVal(int nFiles, int nColumnes, float& valor)
 	return trobat;
 }
 
-void MatriuDispersa::sortVectors() {
+void MatriuSparse::sortVectors() {
 	int valorRow = 0;
 	int valorCol = 0;
 	int valorVal = 0;
@@ -127,17 +127,48 @@ void MatriuDispersa::sortVectors() {
 	}
 }
 
-ostream & operator<<(ostream & out, const MatriuDispersa & md)
+MatriuSparse MatriuSparse::operator*(int n)
+{
+	for (int aux = 0; aux < valVector.size(); aux++) {
+		valVector.at(aux) *= n;
+	}
+	return *this;
+}
+
+MatriuSparse MatriuSparse::operator*(int& n)
+{
+	for (int aux = 0; aux < valVector.size(); aux++) {
+		valVector.at(aux) *= n;
+	}
+	return *this;
+}
+
+vector<float> MatriuSparse::operator*(vector<float> n)
+{
+	for (int aux = 0; aux < valVector.size(); aux++) {
+		n.at(aux) *= valVector.at(aux);
+	}
+	return n;
+}
+
+MatriuSparse MatriuSparse::operator/(int  n)
+{
+	for (int aux = 0; aux < valVector.size(); aux++) {
+		valVector.at(aux) /= n;
+	}
+	return *this;
+}
+
+ostream & operator<<(ostream & out, const MatriuSparse & md)
 {
 	int pos = 0;
 	int posRow = md.rowVector.at(pos);
 	int posCol = md.colVector.at(pos);
 	int posVal = md.valVector.at(pos);
 	for (int row = 0; row < md.maxRowCol; row++) {
-		out << "\n ";
 		for (int col = 0; col < md.maxRowCol; col++) {
 			if (row == posRow && col == posCol) {
-				out << md.valVector.at(pos) << "   ";
+				out << md.valVector.at(pos) << " ";
 				if (pos < (md.rowVector.size() - 1)) {
 					pos++;
 					posRow = md.rowVector.at(pos);
@@ -146,7 +177,7 @@ ostream & operator<<(ostream & out, const MatriuDispersa & md)
 				}
 			}
 			else {
-				out << "0   ";
+				out << "0 ";
 			}
 		}
 		out << "\n";

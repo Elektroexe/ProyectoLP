@@ -21,6 +21,7 @@
   <ItemGroup>
     <Text Include="Epinions.txt" />
     <Text Include="EpinionsOrdenat.txt" />
+    <Text Include="ResX1COORD.txt" />
     <Text Include="SubEpinions2.txt" />
     <Text Include="SubEpinions2Ordenat.txt" />
     <Text Include="Xarxa1.txt" />
@@ -28,11 +29,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatriuBasica.cpp" />
-    <ClCompile Include="MatriuDispersa.cpp" />
+    <ClCompile Include="MatriuSparse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MatriuBasica.h" />
-    <ClInclude Include="MatriuDispersa.h" />
+    <ClInclude Include="MatriuSparse.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

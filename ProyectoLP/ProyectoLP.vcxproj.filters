@@ -30,6 +30,7 @@
     <Text Include="SubEpinions2.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="ResX1COORD.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -38,7 +39,7 @@
     <ClCompile Include="MatriuBasica.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="MatriuDispersa.cpp">
+    <ClCompile Include="MatriuSparse.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,7 +47,7 @@
     <ClInclude Include="MatriuBasica.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="MatriuDispersa.h">
+    <ClInclude Include="MatriuSparse.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
