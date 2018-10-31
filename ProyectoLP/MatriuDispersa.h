@@ -41,11 +41,12 @@ public:
 	~MatriuDispersa() {};
 	void setVal(const int& nFiles, const  int& nColumnes, const int& valor);
 	void setVal(const int& valor);
-	void sortVectors();
 	friend ostream& operator<<(ostream& out, const MatriuDispersa& md);
 private:
 	vector<int> colVector;
 	vector<int> rowVector;
-	vector<int> valVector;
-	int maxRowCol;
+	//Posible tercer vector
+	//vector<int> valVector;
+	int maxRow;
+	int maxCol;
 };
