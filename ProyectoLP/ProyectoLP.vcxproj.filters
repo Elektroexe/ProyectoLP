@@ -21,6 +21,15 @@
     <Text Include="Xarxa1.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="SubEpinions2Ordenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="EpinionsOrdenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="SubEpinions2.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
