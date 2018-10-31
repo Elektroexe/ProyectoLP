@@ -213,7 +213,51 @@ void MatriuDispersa::setVal(const int & valor)
 {
 }
 
+void MatriuDispersa::sortVectors() {
+	int valorRow = 0;
+	int valorCol = 0;
+	int valorVal = 0;
+	for (int a = 0; a < colVector.size() - 1; a++) {
+		for (int b = 0; b < colVector.size() - (a + 1); b++) {
+			if ((rowVector.at(b) > rowVector.at(b + 1)) ||
+				(rowVector.at(b) == rowVector.at(b + 1) && colVector.at(b) > colVector.at(b + 1))) {
+				valorRow = rowVector.at(b + 1);
+				valorCol = colVector.at(b + 1);
+				valorVal = valVector.at(b + 1);
+				rowVector.at(b + 1) = rowVector.at(b);
+				colVector.at(b + 1) = colVector.at(b);
+				valVector.at(b + 1) = valVector.at(b);
+				rowVector.at(b) = valorRow;
+				colVector.at(b) = valorCol;
+				valVector.at(b) = valorVal;
+			}
+		}
+	}
+}
+
 ostream & operator<<(ostream & out, const MatriuDispersa & md)
 {
-	// TODO: insertar una instrucción return aquí
+	int pos = 0;
+	int posRow = md.rowVector.at(pos);
+	int posCol = md.colVector.at(pos);
+	int posVal = md.valVector.at(pos);
+	for (int row = 0; row < md.maxRowCol; row++) {
+		out << "\n ";
+		for (int col = 0; col < md.maxRowCol; col++) {
+			if (row == posRow && col == posCol) {
+				out << md.valVector.at(pos) << "   ";
+				if (pos < (md.rowVector.size() - 1)) {
+					pos++;
+					posRow = md.rowVector.at(pos);
+					posCol = md.colVector.at(pos);
+					posVal = md.valVector.at(pos);
+				}
+			}
+			else {
+				out << "0   ";
+			}
+		}
+		out << "\n";
+	}
+	return out;
 }
