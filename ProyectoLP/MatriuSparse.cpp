@@ -8,6 +8,16 @@ MatriuSparse::MatriuSparse()
 	maxRowCol = 0;
 }
 
+MatriuSparse::MatriuSparse(const MatriuSparse & ms)
+{
+	maxRowCol = ms.maxRowCol;
+	for (int aux = 0; aux < ms.colVector.size(); aux++) {
+		rowVector.emplace_back(ms.rowVector.at(aux));
+		colVector.emplace_back(ms.colVector.at(aux));
+		valVector.emplace_back(ms.valVector.at(aux));
+	}
+}
+
 MatriuSparse::MatriuSparse(string fitxert)
 {
 	ifstream myReadFile;
@@ -49,8 +59,8 @@ MatriuSparse::MatriuSparse(string fitxert)
 
 			}
 		}
-
 	}
+	myReadFile.close();
 	sortVectors();
 }
 
@@ -83,26 +93,29 @@ void MatriuSparse::setVal(const int & nFiles, const int & nColumnes, const int &
 			}
 		}
 	}
+	sortVectors();
 }
 
 bool MatriuSparse::getVal(int nFiles, int nColumnes, float& valor)
 {
-	bool trobat = false;
-	if (valor == 0)
-	{
-		trobat = true;
-	}
-	for (int i = 0; i < rowVector.size(); i++)
-	{
-		if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
+	if (nFiles < maxRowCol && nColumnes < maxRowCol) {
+		bool found = false;
+		for (int i = 0; i < rowVector.size(); i++)
 		{
-			valor = valVector.at(i);
-			trobat = true;
-
-
+			if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
+			{
+				valor = valVector.at(i);
+				found = true;
+			}
 		}
+		if (!found) {
+			valor = 0;
+		}
+		return true;
 	}
-	return trobat;
+	else {
+		return false;
+	}
 }
 
 void MatriuSparse::sortVectors() {
@@ -129,39 +142,56 @@ void MatriuSparse::sortVectors() {
 
 MatriuSparse MatriuSparse::operator*(int n)
 {
-	for (int aux = 0; aux < valVector.size(); aux++) {
-		valVector.at(aux) *= n;
+	MatriuSparse newMatriu(*this);
+	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
+		newMatriu.valVector.at(aux) *= n;
 	}
-	return *this;
+	return newMatriu;
 }
 
 MatriuSparse MatriuSparse::operator*(int& n)
 {
-	for (int aux = 0; aux < valVector.size(); aux++) {
-		valVector.at(aux) *= n;
+	MatriuSparse newMatriu(*this);
+	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
+		newMatriu.valVector.at(aux) *= n;
 	}
-	return *this;
+	return newMatriu;
 }
 
 vector<float> MatriuSparse::operator*(vector<float> n)
 {
-	for (int aux = 0; aux < valVector.size(); aux++) {
-		n.at(aux) *= valVector.at(aux);
+	vector<float> newVector;
+	float result = 0;
+	for (int aux = 0; aux < maxRowCol; aux++) {
+		for (int aux2 = 0; aux2 < rowVector.size(); aux2++) {
+			if (rowVector.at(aux2) == aux) {
+				result += n.at(colVector.at(aux2)) * valVector.at(aux2);
+			}
+		}
+		newVector.emplace_back(result);
+		result = 0;
 	}
-	return n;
+	return newVector;
 }
 
 MatriuSparse MatriuSparse::operator/(int  n)
 {
-	for (int aux = 0; aux < valVector.size(); aux++) {
-		valVector.at(aux) /= n;
+	MatriuSparse newMatriu(*this);
+	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
+		newMatriu.valVector.at(aux) /= n;
 	}
-	return *this;
+	return newMatriu;
 }
 
 ostream & operator<<(ostream & out, const MatriuSparse & md)
 {
-	int pos = 0;
+	out << "MATRIU DE (FILES: " << md.maxRowCol << "  COLUMNES: " << md.maxRowCol << " )" << endl;
+	out << "VALORS (FILA::COL::VALOR)" << endl;
+	for (int aux = 0; aux < md.rowVector.size(); aux++) {
+		out << "( " << md.rowVector.at(aux) << " :: " << md.colVector.at(aux) << " :: " << md.valVector.at(aux) << " ) " << endl;
+	}
+	//out << "\n" << endl;
+	/*int pos = 0;
 	int posRow = md.rowVector.at(pos);
 	int posCol = md.colVector.at(pos);
 	int posVal = md.valVector.at(pos);
@@ -181,6 +211,6 @@ ostream & operator<<(ostream & out, const MatriuSparse & md)
 			}
 		}
 		out << "\n";
-	}
+	}*/
 	return out;
 }

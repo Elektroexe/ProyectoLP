@@ -5,10 +5,10 @@ using namespace std;
 class MatriuSparse {
 public:
 	MatriuSparse();
+	MatriuSparse(const MatriuSparse &ms);
 	MatriuSparse(string fitxert);
 	~MatriuSparse() {};
 	void setVal(const int& nFiles, const  int& nColumnes, const int& valor);
-	void setVal(const int& valor);
 	bool getVal(int nFiles, int nColumnes, float &valor);
 	void sortVectors();
 	int getNFiles() { return maxRowCol; };

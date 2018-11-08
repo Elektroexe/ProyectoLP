@@ -30,7 +30,75 @@
     <Text Include="SubEpinions2.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
-    <Text Include="ResX1COORD.txt" />
+    <Text Include="MatDivEpiOrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatDivSubEpi2OrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatDivX1COORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdEpiOrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdSubEpi2OrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdX1COORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResEpiOrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResSubEpi2OrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResX1COORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResX1COORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdEpiOrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdSubEpi2OrdenatCOORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdSubEpi2OrdenatEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdX1COORDEsperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdX1Esperat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatDivSubEpi2OrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatDivX1COORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdSubEpi2OrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatDivSubEpi2Ordenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdX1COORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResSubEpi2OrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdX1COORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompVectProdX1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
