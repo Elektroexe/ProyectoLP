@@ -61,7 +61,13 @@ MatriuSparse::MatriuSparse(string fitxert)
 		}
 	}
 	myReadFile.close();
-	sortVectors();
+}
+
+MatriuSparse::~MatriuSparse()
+{
+	rowVector.clear();
+	colVector.clear();
+	valVector.clear();
 }
 
 void MatriuSparse::setVal(const int & nFiles, const int & nColumnes, const int & valor)
@@ -83,17 +89,19 @@ void MatriuSparse::setVal(const int & nFiles, const int & nColumnes, const int &
 			colVector.emplace_back(nColumnes);
 			valVector.emplace_back(valor);
 
-			if (nFiles > maxRowCol + 1)
+			if (nFiles > (maxRowCol - 1))
 			{
 				maxRowCol = nFiles + 1;
 			}
-			if (nColumnes > maxRowCol + 1)
+			else {
+				sortVectors();
+			}
+			if (nColumnes > (maxRowCol - 1))
 			{
 				maxRowCol = nColumnes + 1;
 			}
 		}
 	}
-	sortVectors();
 }
 
 bool MatriuSparse::getVal(int nFiles, int nColumnes, float& valor)
@@ -162,10 +170,15 @@ vector<float> MatriuSparse::operator*(vector<float> n)
 {
 	vector<float> newVector;
 	float result = 0;
+	int position = 0;
 	for (int aux = 0; aux < maxRowCol; aux++) {
-		for (int aux2 = 0; aux2 < rowVector.size(); aux2++) {
+		for (int aux2 = position; aux2 < rowVector.size(); aux2++) {
 			if (rowVector.at(aux2) == aux) {
 				result += n.at(colVector.at(aux2)) * valVector.at(aux2);
+			}
+			if (rowVector.at(aux2) > aux) {
+				position = aux2;
+				aux2 = rowVector.size();
 			}
 		}
 		newVector.emplace_back(result);
@@ -190,27 +203,5 @@ ostream & operator<<(ostream & out, const MatriuSparse & md)
 	for (int aux = 0; aux < md.rowVector.size(); aux++) {
 		out << "( " << md.rowVector.at(aux) << " :: " << md.colVector.at(aux) << " :: " << md.valVector.at(aux) << " ) " << endl;
 	}
-	//out << "\n" << endl;
-	/*int pos = 0;
-	int posRow = md.rowVector.at(pos);
-	int posCol = md.colVector.at(pos);
-	int posVal = md.valVector.at(pos);
-	for (int row = 0; row < md.maxRowCol; row++) {
-		for (int col = 0; col < md.maxRowCol; col++) {
-			if (row == posRow && col == posCol) {
-				out << md.valVector.at(pos) << " ";
-				if (pos < (md.rowVector.size() - 1)) {
-					pos++;
-					posRow = md.rowVector.at(pos);
-					posCol = md.colVector.at(pos);
-					posVal = md.valVector.at(pos);
-				}
-			}
-			else {
-				out << "0 ";
-			}
-		}
-		out << "\n";
-	}*/
 	return out;
 }

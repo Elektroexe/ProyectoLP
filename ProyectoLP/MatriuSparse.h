@@ -7,7 +7,7 @@ public:
 	MatriuSparse();
 	MatriuSparse(const MatriuSparse &ms);
 	MatriuSparse(string fitxert);
-	~MatriuSparse() {};
+	~MatriuSparse();
 	void setVal(const int& nFiles, const  int& nColumnes, const int& valor);
 	bool getVal(int nFiles, int nColumnes, float &valor);
 	void sortVectors();
