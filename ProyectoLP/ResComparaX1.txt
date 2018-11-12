@@ -1,0 +1,1 @@
+Fitxer ResX1COORDEsperat.txt es mes curt que ResX1COORD.txt

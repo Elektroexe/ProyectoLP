@@ -1,0 +1,1 @@
+Fitxer MatDivX1COORDEsperat.txt es mes curt que MatDivX1COORD.txt

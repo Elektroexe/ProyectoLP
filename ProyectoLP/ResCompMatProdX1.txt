@@ -1,0 +1,1 @@
+Fitxer MatProdX1COORDEsperat.txt es mes curt que MatProdX1COORD.txt

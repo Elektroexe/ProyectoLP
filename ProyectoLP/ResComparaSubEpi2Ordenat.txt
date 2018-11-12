@@ -1,0 +1,1 @@
+Fitxer ResSubEpi2OrdenatCOORDEsperat.txt es mes curt que ResSubEpi2OrdenatCOORD.txt

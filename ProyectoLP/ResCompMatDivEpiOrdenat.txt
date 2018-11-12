@@ -1,0 +1,1 @@
+Fitxer MatDivEpiOrdenatCOORDEsperat.txt es mes curt que MatDivEpiOrdenatCOORD.txt

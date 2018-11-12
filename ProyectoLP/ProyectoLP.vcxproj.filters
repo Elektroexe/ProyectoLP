@@ -99,6 +99,51 @@
     <Text Include="ResCompVectProdX1.txt">
       <Filter>Archivos de recursos</Filter>
     </Text>
+    <Text Include="MatDivEpiOrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="MatProdEpiOrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResComparaSubEpi2Ordenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResComparaX1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompEpiOrdenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatDivEpiOrdenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatDivX1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatProdEpiOrdenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatProdSubEpi2Ordenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompMatProdX1.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompVectProdEpiOrdenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResCompVectProdSubEpi2Ordenat.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="ResEpiOrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdEpiOrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
+    <Text Include="VectProdSubEpi2OrdenatCOORD.txt">
+      <Filter>Archivos de recursos</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,12 +155,18 @@
     <ClCompile Include="MatriuSparse.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Coordinates.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MatriuBasica.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="MatriuSparse.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinates.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

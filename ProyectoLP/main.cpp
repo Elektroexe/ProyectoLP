@@ -1,10 +1,5 @@
 #include "MatriuBasica.h"
-#include <iostream>
-#include <fstream>
-#include <iostream>
-#include <sstream>
 #include "MatriuSparse.h"
-
 
 bool IgualFitxers(string nomF1, string nomF2, string nomFRes)
 {

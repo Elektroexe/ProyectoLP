@@ -21,18 +21,31 @@
   <ItemGroup>
     <Text Include="Epinions.txt" />
     <Text Include="EpinionsOrdenat.txt" />
+    <Text Include="MatDivEpiOrdenatCOORD.txt" />
     <Text Include="MatDivEpiOrdenatCOORDEsperat.txt" />
     <Text Include="MatDivSubEpi2OrdenatCOORD.txt" />
     <Text Include="MatDivSubEpi2OrdenatCOORDEsperat.txt" />
     <Text Include="MatDivX1COORD.txt" />
     <Text Include="MatDivX1COORDEsperat.txt" />
+    <Text Include="MatProdEpiOrdenatCOORD.txt" />
     <Text Include="MatProdEpiOrdenatCOORDEsperat.txt" />
     <Text Include="MatProdSubEpi2OrdenatCOORD.txt" />
     <Text Include="MatProdSubEpi2OrdenatCOORDEsperat.txt" />
     <Text Include="MatProdX1COORD.txt" />
     <Text Include="MatProdX1COORDEsperat.txt" />
+    <Text Include="ResComparaSubEpi2Ordenat.txt" />
+    <Text Include="ResComparaX1.txt" />
+    <Text Include="ResCompEpiOrdenat.txt" />
+    <Text Include="ResCompMatDivEpiOrdenat.txt" />
     <Text Include="ResCompMatDivSubEpi2Ordenat.txt" />
+    <Text Include="ResCompMatDivX1.txt" />
+    <Text Include="ResCompMatProdEpiOrdenat.txt" />
+    <Text Include="ResCompMatProdSubEpi2Ordenat.txt" />
+    <Text Include="ResCompMatProdX1.txt" />
+    <Text Include="ResCompVectProdEpiOrdenat.txt" />
+    <Text Include="ResCompVectProdSubEpi2Ordenat.txt" />
     <Text Include="ResCompVectProdX1.txt" />
+    <Text Include="ResEpiOrdenatCOORD.txt" />
     <Text Include="ResEpiOrdenatCOORDEsperat.txt" />
     <Text Include="ResSubEpi2OrdenatCOORD.txt" />
     <Text Include="ResSubEpi2OrdenatCOORDEsperat.txt" />
@@ -40,7 +53,9 @@
     <Text Include="ResX1COORDEsperat.txt" />
     <Text Include="SubEpinions2.txt" />
     <Text Include="SubEpinions2Ordenat.txt" />
+    <Text Include="VectProdEpiOrdenatCOORD.txt" />
     <Text Include="VectProdEpiOrdenatCOORDEsperat.txt" />
+    <Text Include="VectProdSubEpi2OrdenatCOORD.txt" />
     <Text Include="VectProdSubEpi2OrdenatCOORDEsperat.txt" />
     <Text Include="VectProdSubEpi2OrdenatEsperat.txt" />
     <Text Include="VectProdX1COORD.txt" />
@@ -49,11 +64,13 @@
     <Text Include="Xarxa1.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatriuBasica.cpp" />
     <ClCompile Include="MatriuSparse.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Coordinates.h" />
     <ClInclude Include="MatriuBasica.h" />
     <ClInclude Include="MatriuSparse.h" />
   </ItemGroup>

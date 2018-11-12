@@ -1,7 +1,4 @@
 #include "MatriuSparse.h"
-#include <fstream>
-#include <iostream>
-#include <sstream>
 
 MatriuSparse::MatriuSparse()
 {
@@ -11,10 +8,8 @@ MatriuSparse::MatriuSparse()
 MatriuSparse::MatriuSparse(const MatriuSparse & ms)
 {
 	maxRowCol = ms.maxRowCol;
-	for (int aux = 0; aux < ms.colVector.size(); aux++) {
-		rowVector.emplace_back(ms.rowVector.at(aux));
-		colVector.emplace_back(ms.colVector.at(aux));
-		valVector.emplace_back(ms.valVector.at(aux));
+	for (int aux = 0; aux < ms.coordVector.size(); aux++) {
+		coordVector.emplace_back((ms.coordVector.at(aux)));
 	}
 }
 
@@ -23,7 +18,7 @@ MatriuSparse::MatriuSparse(string fitxert)
 	ifstream myReadFile;
 	myReadFile.open(fitxert);
 	string line = "";
-	int sizeCount = 0;
+	int sizeCount = 0, row = 0, col = 0;
 	if (myReadFile.is_open())
 	{
 		if (!myReadFile.eof())
@@ -34,60 +29,47 @@ MatriuSparse::MatriuSparse(string fitxert)
 				while (getline(ss, line, '\t')) {
 					if (line != "")
 					{
-						if (primerVec)
-						{
-							rowVector.emplace_back(stoi(line));
-							primerVec = false;
-							valVector.emplace_back(1);
-							if (stoi(line) > maxRowCol + 1)
-							{
-								maxRowCol = stoi(line) + 1;
-							}
-
+						row = stoi(line);
+						getline(ss, line, '\t');
+						col = stoi(line);
+						Coordinates coord(row, col, 1);
+						coordVector.emplace_back(coord);
+						if (row > (maxRowCol - 1)) {
+							maxRowCol = row + 1;
 						}
-						else {
-							colVector.emplace_back(stoi(line));
-							if (stoi(line) > maxRowCol + 1)
-							{
-								maxRowCol = stoi(line) + 1;
-							}
+						if (col > (maxRowCol - 1)) {
+							maxRowCol = col + 1;
 						}
 					}
-
-
 				}
 
 			}
 		}
+		myReadFile.close();
 	}
-	myReadFile.close();
 }
 
 MatriuSparse::~MatriuSparse()
 {
-	rowVector.clear();
-	colVector.clear();
-	valVector.clear();
+	coordVector.clear();
 }
 
 void MatriuSparse::setVal(const int & nFiles, const int & nColumnes, const int & valor)
 {
-	if (valor > 0)
+	if (valor != 0)
 	{
 		bool trobat = false;
-		for (int i = 0; i < rowVector.size(); i++)
+		for (int i = 0; i < coordVector.size(); i++)
 		{
-			if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
+			if (coordVector.at(i).getRow() == nFiles && coordVector.at(i).getCol() == nColumnes)
 			{
-				valVector.at(i) = valor;
+				coordVector.at(i).setVal(valor);
 				trobat = true;
 			}
 		}
 		if (!trobat)
 		{
-			rowVector.emplace_back(nFiles);
-			colVector.emplace_back(nColumnes);
-			valVector.emplace_back(valor);
+			coordVector.emplace_back(Coordinates(nFiles, nColumnes, valor));
 
 			if (nFiles > (maxRowCol - 1))
 			{
@@ -108,12 +90,13 @@ bool MatriuSparse::getVal(int nFiles, int nColumnes, float& valor)
 {
 	if (nFiles < maxRowCol && nColumnes < maxRowCol) {
 		bool found = false;
-		for (int i = 0; i < rowVector.size(); i++)
-		{
-			if (rowVector.at(i) == nFiles && colVector.at(i) == nColumnes)
-			{
-				valor = valVector.at(i);
+		for (Coordinates coord : coordVector) {
+			if (coord.getRow() == nFiles && coord.getCol() == nColumnes) {
+				valor = coord.getVal();
 				found = true;
+			}
+			if (coord.getRow() > nFiles || (coord.getRow() == nFiles && coord.getCol() > nColumnes)) {
+				break;
 			}
 		}
 		if (!found) {
@@ -127,41 +110,15 @@ bool MatriuSparse::getVal(int nFiles, int nColumnes, float& valor)
 }
 
 void MatriuSparse::sortVectors() {
-	int valorRow = 0;
-	int valorCol = 0;
-	int valorVal = 0;
-	for (int a = 0; a < colVector.size() - 1; a++) {
-		for (int b = 0; b < colVector.size() - (a + 1); b++) {
-			if ((rowVector.at(b) > rowVector.at(b + 1)) ||
-				(rowVector.at(b) == rowVector.at(b + 1) && colVector.at(b) > colVector.at(b + 1))) {
-				valorRow = rowVector.at(b + 1);
-				valorCol = colVector.at(b + 1);
-				valorVal = valVector.at(b + 1);
-				rowVector.at(b + 1) = rowVector.at(b);
-				colVector.at(b + 1) = colVector.at(b);
-				valVector.at(b + 1) = valVector.at(b);
-				rowVector.at(b) = valorRow;
-				colVector.at(b) = valorCol;
-				valVector.at(b) = valorVal;
-			}
-		}
-	}
+	sort(coordVector.begin(), coordVector.end(), less<Coordinates>());
 }
 
 MatriuSparse MatriuSparse::operator*(int n)
 {
-	MatriuSparse newMatriu(*this);
-	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
-		newMatriu.valVector.at(aux) *= n;
-	}
-	return newMatriu;
-}
-
-MatriuSparse MatriuSparse::operator*(int& n)
-{
-	MatriuSparse newMatriu(*this);
-	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
-		newMatriu.valVector.at(aux) *= n;
+	MatriuSparse newMatriu;
+	newMatriu.maxRowCol = maxRowCol;
+	for (Coordinates coord : coordVector) {
+		newMatriu.coordVector.emplace_back(Coordinates(coord.getRow(), coord.getCol(), coord.getVal()*n));
 	}
 	return newMatriu;
 }
@@ -172,13 +129,13 @@ vector<float> MatriuSparse::operator*(vector<float> n)
 	float result = 0;
 	int position = 0;
 	for (int aux = 0; aux < maxRowCol; aux++) {
-		for (int aux2 = position; aux2 < rowVector.size(); aux2++) {
-			if (rowVector.at(aux2) == aux) {
-				result += n.at(colVector.at(aux2)) * valVector.at(aux2);
+		for (int aux2 = position; aux2 < coordVector.size(); aux2++) {
+			if (coordVector.at(aux2).getRow() == aux) {
+				result += n.at(coordVector.at(aux2).getCol()) * coordVector.at(aux2).getVal();
 			}
-			if (rowVector.at(aux2) > aux) {
+			if (coordVector.at(aux2).getRow() > aux) {
 				position = aux2;
-				aux2 = rowVector.size();
+				aux2 = coordVector.size();
 			}
 		}
 		newVector.emplace_back(result);
@@ -189,9 +146,10 @@ vector<float> MatriuSparse::operator*(vector<float> n)
 
 MatriuSparse MatriuSparse::operator/(int  n)
 {
-	MatriuSparse newMatriu(*this);
-	for (int aux = 0; aux < newMatriu.valVector.size(); aux++) {
-		newMatriu.valVector.at(aux) /= n;
+	MatriuSparse newMatriu;
+	newMatriu.maxRowCol = maxRowCol;
+	for (Coordinates coord : coordVector) {
+		newMatriu.coordVector.emplace_back(Coordinates(coord.getRow(), coord.getCol(), coord.getVal() / n));
 	}
 	return newMatriu;
 }
@@ -200,8 +158,9 @@ ostream & operator<<(ostream & out, const MatriuSparse & md)
 {
 	out << "MATRIU DE (FILES: " << md.maxRowCol << "  COLUMNES: " << md.maxRowCol << " )" << endl;
 	out << "VALORS (FILA::COL::VALOR)" << endl;
-	for (int aux = 0; aux < md.rowVector.size(); aux++) {
-		out << "( " << md.rowVector.at(aux) << " :: " << md.colVector.at(aux) << " :: " << md.valVector.at(aux) << " ) " << endl;
+	for (Coordinates coord : md.coordVector) {
+		out << coord;
 	}
+	out << endl;
 	return out;
 }

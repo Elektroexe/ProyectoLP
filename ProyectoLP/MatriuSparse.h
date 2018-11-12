@@ -1,7 +1,13 @@
 #pragma once
-#include <string>
+#include "Coordinates.h"
 #include <vector>
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
 using namespace std;
+
 class MatriuSparse {
 public:
 	MatriuSparse();
@@ -13,13 +19,11 @@ public:
 	void sortVectors();
 	int getNFiles() { return maxRowCol; };
 	MatriuSparse operator* (int n);
-	MatriuSparse operator* (int& n);
+	//MatriuSparse operator* (int& n);
 	vector<float> operator* (vector<float> n);
 	MatriuSparse operator/ (int n);
 	friend ostream& operator<<(ostream& out, const MatriuSparse& md);
 private:
-	vector<int> colVector;
-	vector<int> rowVector;
-	vector<int> valVector;
+	vector<Coordinates> coordVector;
 	int maxRowCol;
 };
